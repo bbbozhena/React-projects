@@ -3,21 +3,21 @@ import './index.scss';
 
 const questions = [
   {
-    title: 'React - это ... ?',
-    variants: ['библиотека', 'фреймворк', 'приложение'],
+    title: 'React - це ... ?',
+    variants: ['бібліотека', 'фреймворк', 'додаток'],
     correct: 0,
   },
   {
-    title: 'Компонент - это ... ',
-    variants: ['приложение', 'часть приложения или страницы', 'то, что я не знаю что такое'],
+    title: 'Компонент - це ... ',
+    variants: ['додаток', 'частина додатку або сторінки', 'те, що я не знаю'],
     correct: 1,
   },
   {
-    title: 'Что такое JSX?',
+    title: 'Що таке JSX?',
     variants: [
-      'Это простой HTML',
-      'Это функция',
-      'Это тот же HTML, но с возможностью выполнять JS-код',
+      'Це простий HTML',
+      'Це функція',
+      'Це той же HTML, тільки з можливістю виконувати JS-код',
     ],
     correct: 2,
   },
@@ -33,11 +33,14 @@ function Result() {
   );
 }
 
-function Game({question, onClicklVariants}) {
+function Game({step, question, onClicklVariants}) {
+
+  const percentage = Math.round((step / questions.length) * 100);
+
   return (
     <>
       <div className="progress">
-        <div style={{ width: '50%' }} className="progress__inner"></div>
+        <div style={{ width: `${percentage}%` }} className="progress__inner"></div>
       </div>
       <h1>{question.title}</h1>
       <ul>
@@ -56,13 +59,14 @@ function App() {
   const question = questions[step];
 
   const onClicklVariants = (index) => {
-    console.log(index);
+    console.log(step, index);
     setStep(step + 1)
   }
   return (
     <div className="App">
       <Game question={question} 
             onClicklVariants={onClicklVariants}
+            step={step}
       />
       {/* <Result /> */}
     </div>
