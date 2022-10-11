@@ -23,12 +23,12 @@ const questions = [
   },
 ];
 
-function Result() {
+function Result({correct}) {
   return (
     <div className="result">
       <img src="https://cdn-icons-png.flaticon.com/512/2278/2278992.png" />
-      <h2>Вы отгадали 3 ответа из 10</h2>
-      <button>Попробовать снова</button>
+      <h2>Ви відгадали {correct} відповіді з {questions.length}</h2>
+      <button>Попробувати знову</button>
     </div>
   );
 }
@@ -56,19 +56,26 @@ function Game({step, question, onClicklVariants}) {
 
 function App() {
   const [step, setStep] = React.useState(0);
+  const [correct, setCorrect] = React.useState(0);
   const question = questions[step];
 
   const onClicklVariants = (index) => {
     console.log(step, index);
     setStep(step + 1)
+
+    if (index === question.correct) {
+      setCorrect(correct + 1)
+    }
   }
   return (
     <div className="App">
-      <Game question={question} 
-            onClicklVariants={onClicklVariants}
-            step={step}
-      />
-      {/* <Result /> */}
+      {
+        step != questions.length ? <Game question={question} 
+        onClicklVariants={onClicklVariants}
+        step={step}
+  /> : (<Result correct={correct}/>) 
+      }
+     
     </div>
   );
 }
